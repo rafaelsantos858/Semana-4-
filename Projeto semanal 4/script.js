@@ -60,16 +60,6 @@ function func2(e) {
     }
 }
 
-// document.getElementById("cep").addEventListener("input", func3)
-//             function func3(e){
-//                 if(cep.value.length == 5){
-//                     cep.value += "-"
-//                 }
-//             }
-
-
-
-
 
 
 
@@ -89,10 +79,10 @@ function validacao() {
     var complemento = document.getElementById("complemento")
 
 
-    if (isNaN(rua.value)) {
-        alert("Digite apenas números no campo Rua");
-        return false;
-    }
+    // if ( isNaN(rua.value)  ) {  
+    //     alert("Digite apenas números no campo Rua");    
+    //     return false;  
+    // }
 
 
     if (nome.value == "") {
@@ -100,7 +90,7 @@ function validacao() {
         return false
     }
 
-    if (cpf.value == "" || cpf.value.length < 14) {
+    if (cpf.value == "" || cpf.value.length < 8) {
         alert("Verifique as informações do campo CPF")
         return false
     }
@@ -125,7 +115,7 @@ function validacao() {
         return false
     }
 
-    if (cep.value == "" || cep.value.length < 9) {
+    if (cep.value == "" || cep.value.length < 8) {
         alert("preencha o campo CEP")
         return false
     }
@@ -186,4 +176,73 @@ function dadosendereco(cep) {
         }
     }
     xhr.send()
+}
+
+function salvar() {
+
+    const nome = document.getElementById("nome")
+    const cpf = document.getElementById("cpf")
+    const rg = document.getElementById("rg")
+    const datanascimento = document.getElementById("datanascimento")
+    const tipocnh = document.getElementById("tipocnh")
+    const estadocivil = document.getElementById("estadocivil")
+    const cep = document.getElementById("cep")
+    const rua = document.getElementById("rua")
+    const bairro = document.getElementById("bairro")
+    const cidade = document.getElementById("cidade")
+    const estado = document.getElementById("estado")
+    const numero = document.getElementById("numero")
+    const complemento = document.getElementById("complemento")
+
+    const obj = {
+        nome: nome.value,
+        CPF: cpf.value,
+        RG: rg.value,
+        data_nasc: datanascimento.value,
+        tipo_cnh: tipocnh.value,
+        estado_civil: estadocivil.value,
+        CEP: cep.value,
+        rua: rua.value,
+        bairro: bairro.value,
+        cidade: cidade.value,
+        estado: estado.value,
+        numero: numero.value,
+        complemento: complemento.value
+
+    }
+
+    const obj_json = JSON.stringify(obj)
+
+    const xhr = new XMLHttpRequest()
+
+    xhr.open("POST", "https://beginner-api.herokuapp.com/save")
+
+    xhr.setRequestHeader("Content-Type", "application/json")
+
+    xhr.onreadystatechange = function () {
+
+        if (this.status == 200 && this.readyState == 4) {
+
+            var status = JSON.parse(xhr.responseText)
+
+            if (status.Sucesso = "Todos os campos foram preenchidos.") {
+                alert("Cadastro realizado com sucesso")
+            } else alert("erro de envio")
+
+            console.log(obj_json);
+            console.log(obj)
+            console.log(status)
+
+        }
+        
+    }
+
+    xhr.send(obj_json)
+
+}
+
+function chamatudo() {
+
+    validacao()
+    salvar()
 }

@@ -74,7 +74,7 @@
                 <br>
                 <div>
                     <label for="cep">CEP:</label>
-                    <input placeholder="Digite seu CEP...(não utilizar pontuação'.' '-') " id="cep" type="text" maxlength="9" required oninput="dadosendereco(this.value)">
+                    <input placeholder="Digite seu CEP...(não utilizar pontuação'.' '-') " id="cep" type="text" maxlength="8" required oninput="dadosendereco(this.value)">
                         
                 </div>
 
@@ -147,7 +147,9 @@
                 <br>
 
                 <div>
-                    <button type="submit" id="btn" onclick="return validacao()">Salvar</button>
+                    <button type="button" id="btn" onclick="chamatudo()">Salvar</button>
+                   
+
                 </div>
             </form>
 
